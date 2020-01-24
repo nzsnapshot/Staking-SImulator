@@ -4,10 +4,10 @@ from duel import *
 P1P2styles = ('flick','flick')
 
 # how many runs do you want to do
-runs = 10
+runs = 100
 
 # display extra duel info
-extra_info = True
+extra_info = False
 
 print(duel(P1P2styles,runs,extra_info))
 

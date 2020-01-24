@@ -13,9 +13,6 @@ wagerSize = 100
 wagerCount = 100
 
 
-
-
-
 def rollDice():
     roll = random.randint(1,100)
 
@@ -101,8 +98,8 @@ while counter <= multipleSampSize:
     multiple_bettor2(startingFunds,wagerSize,wagerCount,1.75)
     counter += 1
 
-# print ('Total Amount Invested:', multipleSampSize * startingFunds)
-# print ('Total Return:',ROI)
-# print ('Difference:',ROI-(multipleSampSize * startingFunds))
-# print ('Bust Rate:',(multiple_busts/multipleSampSize)*100.00)
-# print ('Profit Rate:',(multiple_profits/multipleSampSize)*100.00)
+print ('Total Amount Invested:', multipleSampSize * startingFunds)
+print ('Total Return:',ROI)
+print ('Difference:',ROI-(multipleSampSize * startingFunds))
+print ('Bust Rate:',(multiple_busts/multipleSampSize)*100.00)
+print ('Profit Rate:',(multiple_profits/multipleSampSize)*100.00)

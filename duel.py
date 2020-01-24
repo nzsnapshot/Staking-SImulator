@@ -53,6 +53,11 @@ def calcHit(stance):
     return dmg
 
 
+def writeToCsv(filename, string):
+    with open(filename, 'a') as f:
+        f.write(string)        
+
+
 def duel(styles=('flick','flick'),runs=100,info=True):
     """ Run duels """
     P1win,P2win = 0,0 # number of wins
@@ -61,6 +66,9 @@ def duel(styles=('flick','flick'),runs=100,info=True):
     t2 = 100
     x1 = []
     y1 = []
+    filename = "data.csv"
+    wincsv = "win.csv"
+
     data = []
     x2 = []
     y2 = []
@@ -91,7 +99,9 @@ def duel(styles=('flick','flick'),runs=100,info=True):
                     x2.append(counter)
                     y2.append(t2)
                     # if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg%s' % (str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
-                    print('Player1 Won!')  
+                    print('Player1 Won!')
+                    writeToCsv(filename, 'Player1 Won!\n')    
+                    writeToCsv(wincsv, '1,0\n')      
                     break
                 P1hp -= P2dmg
                 if P1hp <= 0:
@@ -104,7 +114,9 @@ def duel(styles=('flick','flick'),runs=100,info=True):
                     x2.append(counter)
                     y2.append(t2)
                     # if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg%s' % (str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
-                    print('Player2 Won!')  
+                    print('Player2 Won!')
+                    writeToCsv(filename, 'Player2 Won!\n')    
+                    writeToCsv(wincsv, '0,1\n')      
                     break
             # if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg:%s' %(str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
             else: # player 2 wins pid
@@ -120,7 +132,9 @@ def duel(styles=('flick','flick'),runs=100,info=True):
                     x2.append(counter)
                     y2.append(t2)
                     # if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg%s' % (str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
-                    print('Player2 Won!')                 
+                    print('Player2 Won!')
+                    writeToCsv(filename, 'Player2 Won!\n')    
+                    writeToCsv(wincsv, '0,1\n')      
                     break
                 P2hp -= P1dmg
                 if P2hp <= 0:
@@ -133,12 +147,16 @@ def duel(styles=('flick','flick'),runs=100,info=True):
                     x2.append(counter)
                     y2.append(t2)
                     # if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg%s' % (str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
-                    print('Player1 Won!')                 
+                    print('Player1 Won!')    
+                    writeToCsv(wincsv, '1,0\n')
+                    writeToCsv(filename, 'Player1 Won!\n')      
                     break
-            if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg:%s' %(str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
-            filename = "data.csv"
             with open(filename, 'a') as f:
-                f.write(narnia)
+                f.write('(P1) hp:%s dmg:%s | (P2) hp:%s dmg:%s\n' % (str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))   
+            if info: print ('(P1) hp:%s dmg:%s | (P2) hp:%s dmg:%s' %(str(P1hp),str(P1dmg),str(P2hp),str(P2dmg)))
+
+
+            # offt = '(P1) hp:%s dmg:%s | (P2) hp:%s dmg:%s' %(str(P1hp),str(P1dmg),str(P2hp),str(P2dmg))
         
 
         runs = runs + 0.0	
@@ -146,10 +164,16 @@ def duel(styles=('flick','flick'),runs=100,info=True):
     print(P1win/runs,P2win/runs)
 
     plt.figure(figsize=(15,5))
+
     plt.plot(x1, y1)
+    plt.xticks(np.arange(min(x1), max(x1)+1, 5.0))
+
     plt.show()
     plt.figure(figsize=(15,5))
+
     plt.plot(x2,y2)
+    plt.xticks(np.arange(min(x2), max(x2)+1, 5.0))
+
     plt.show()
     return 	(P1win/runs,P2win/runs)
 
